@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<nav id="nav">
+<div class="main">
     <div class="navbar">
         <h1>Star Wars Characters</h1>
         <div class="navbar__vertical-line"></div>
@@ -21,38 +21,38 @@
             <span>1977-2019</span>
         </div>
     </div>
-    </div>
-</nav>
 
-<section id="star-wars">
-    <div class="star-wars">
-        <div class="star-wars__left-side">
-            <img class="star-wars__image" src="https://s1.1zoom.me/big3/756/Star_Wars_The_Force_503089.jpg" alt="">
-        </div>
-        <div class="star-wars__right-side">
-            <div class="star-wars__text">
-                <h1>A long, long time ago, in a galaxy far, far away.</h1>
-                <h2>Star Destroyers are very powerful spaceships used for battle.</h2>
-                <h3>Yoda trained Luke Skywalker to become a Jedi.</h3>
+    <section id="star-wars">
+        <div class="star-wars">
+            <div class="star-wars__left-side">
+                <img class="star-wars__image" src="https://s1.1zoom.me/big3/756/Star_Wars_The_Force_503089.jpg" alt="">
             </div>
-            <a href="#link">
-                <img class="star-wars__arrow-down" src="./assets/arrow-down-solid.svg" alt="">
-            </a>
+            <div class="star-wars__right-side">
+                <div class="star-wars__text">
+                    <h1 class="star-wars__title">A long, long time ago, in a galaxy far, far away.</h1>
+                    <h2>Star Destroyers are very powerful spaceships used for battle.</h2>
+                    <h3>Yoda trained Luke Skywalker to become a Jedi.</h3>
+                </div>
+                <a href="#swapi-api">
+                    <img class="star-wars__arrow-down" src="./assets/arrow-down-solid.svg" alt="">
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
-<section id="link">
-    <div>
-        <header>
-            <h1>Star Wars API</h1>
-        </header>
-        <nav></nav>
-        <main id="main"></main>
-        <footer id="footer"></footer>
-        <div class="overlay"><div class="loading">loading</div></div>
+
+<div id="swapi-api">
+    <header>
+        <h1>Star Wars API</h1>
+    </header>
+    <nav id="nav"></nav>
+    <main id="main"></main>
+    <footer id="footer"></footer>
+    <div class="overlay">
+        <div class="loading">loading</div>
     </div>
-</section>
+</div>
 
 <script src="app.js"></script>
 </body>

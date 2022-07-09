@@ -2,7 +2,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Pathway Gothic One", sans-serif;
+    font-family: "Roboto", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/*body {*/
+/*    background:url(https://s3.amazonaws.com/wp_media-prod/app/uploads/2015/10/21135602/star-wars-space.jpg) 50% 0 no-repeat fixed;*/
+/*}*/
+
+.main {
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 
@@ -14,12 +27,17 @@
     width: 100%;
 }
 
+.navbar h1 {
+    color: #f5c91c;
+    font-size: 25px;
+}
+
 .navbar__vertical-line {
     height: 50px;
     position: absolute;
     top: 23px;
     border-left: 2px solid black;
-    margin-left: 115px;
+    margin-left: 110px;
 }
 
 .navbar__items {
@@ -65,17 +83,20 @@
     justify-content: center;
 }
 
-h3 {
+.star-wars__title {
     font-size: 60px;
     margin: 10px 0;
+    color: #f5c91c;
 }
 
 h2 {
     font-size: 35px;
+    color: #f5c91c;
 }
 
 h3 {
     font-size: 30px;
+    color: #f5c91c;
 }
 
 @keyframes blink {
@@ -87,12 +108,6 @@ h3 {
     }
 }
 
-a {
-    position: absolute;
-    bottom: 10px;
-    left: 40%;
-}
-
 .star-wars__arrow-down {
     width: 30px;
     animation: arrowBlink 1s infinite;
@@ -101,5 +116,81 @@ a {
 @keyframes arrowBlink {
     100% {
         opacity: 0;
+    }
+}
+
+header,
+main,
+footer {
+    width: 80vw;
+    padding: 1rem 1rem;
+    margin: 0 auto;
+}
+
+header h1 {
+    color: orange;
+    text-align: center;
+}
+
+header h2 {
+    color: orangered;
+}
+
+p {
+    line-height: 1.7;
+    margin: 1.5rem 0;
+}
+
+#nav,
+#footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#nav a,
+#footer a {
+    color: orangered;
+    padding: 0.25rem 1rem;
+    text-decoration: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsla(0, 0%, 0%, 0.8);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay.active {
+    display: flex;
+    cursor: wait;
+}
+
+.loading {
+    font-size: 5rem;
+    color: #fff;
+    text-transform: uppercase;
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 1;
     }
 }
