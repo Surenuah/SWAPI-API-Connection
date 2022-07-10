@@ -7,11 +7,12 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
-/*body {*/
-/*    background:url(https://s3.amazonaws.com/wp_media-prod/app/uploads/2015/10/21135602/star-wars-space.jpg) 50% 0 no-repeat fixed;*/
-/*}*/
+body {
+    background:url(https://s3.amazonaws.com/wp_media-prod/app/uploads/2015/10/21135602/star-wars-space.jpg) 50% 0 no-repeat fixed;
+}
 
 .main {
     width: 100vw;
@@ -35,7 +36,7 @@ html {
     height: 50px;
     position: absolute;
     top: 23px;
-    border-left: 2px solid black;
+    border-left: 2px solid #CFAA17;
     margin-left: 110px;
 }
 
@@ -44,6 +45,10 @@ html {
     align-items: center;
     justify-content: center;
     margin: 10px;
+}
+
+span {
+    color: #f5c91c;
 }
 
 .navbar__image {
@@ -108,7 +113,10 @@ h3 {
 }
 
 .star-wars__arrow-down {
-    width: 30px;
+    position: absolute;
+    bottom: 10px;
+    left: 40%;
+    width: 50px;
     animation: arrowBlink 1s infinite;
 }
 
@@ -130,7 +138,30 @@ h3 {
 }
 
 .api-items__navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.api-items__navbar a {
+    color: orangered;
+    padding: 15px 30px;
+    text-decoration: none;
+}
+
+.api-items__main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+p {
+    line-height: 1.7;
+    margin: 20px 0;
     color: #f5c91c;
+    font-weight: 500;
 }
 
 .overlay {
