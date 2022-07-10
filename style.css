@@ -16,7 +16,6 @@ html {
 .main {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
 }
 
 .navbar {
@@ -119,40 +118,19 @@ h3 {
     }
 }
 
-header,
-main,
-footer {
-    width: 80vw;
-    padding: 1rem 1rem;
-    margin: 0 auto;
+#api-items {
+    width: 100vw;
+    height: 100vh;
 }
 
-header h1 {
-    color: orange;
+.api-items__title {
+    color: #f5c91c;
     text-align: center;
+    font-size: 40px;
 }
 
-header h2 {
-    color: orangered;
-}
-
-p {
-    line-height: 1.7;
-    margin: 1.5rem 0;
-}
-
-#nav,
-#footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#nav a,
-#footer a {
-    color: orangered;
-    padding: 0.25rem 1rem;
-    text-decoration: none;
+.api-items__navbar {
+    color: #f5c91c;
 }
 
 .overlay {

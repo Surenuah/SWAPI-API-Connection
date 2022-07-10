@@ -1,93 +1,63 @@
-const APP = {
-    urls: {
-        base: "https://swapi.dev/api/",
-        people: "people/",
-        planets: 'planets/',
-        films: 'films/',
-        species: 'species/',
-        vehicles: 'vehicles/',
-        starships: 'starships/',
-    },
-    init: () => {
-        APP.addListeners();
-        APP.buildNav();
-    },
-    addListeners: () => {
-        let link = document.getElementById("nav");
-        link.addEventListener("click", APP.getData);
-    },
-    buildNav: () => {
-        let df = new DocumentFragment();
-        for (let nm in APP.urls) {
-            if (nm !== "base") {
-                let link = document.createElement("a");
-                link.href = `${APP.urls.base}${APP.urls[nm]}`;
-                link.textContent = nm;
-                link.setAttribute("data-link", `${APP.urls.base}${APP.urls[nm]}`);
-                df.append(link);
-            }
-        }
-        document.querySelector("nav").append(df);
-    },
-    getData: (ev) => {
-        if (ev) ev.preventDefault();
-        //show overlay / loader
-        document.querySelector('.overlay').classList.add('active');
-        //get the url
-        let link = ev.target;
-        let url = link.getAttribute('data-link');
-        //fetch the data
-        fetch(url)
-            .then((resp) => {
-                if (!resp.ok) throw new Error(resp.statusText);
-                return resp.json();
-            })
-            .then(APP.buildList)
-            .catch((err) => {
-                console.error(err);
-                document.querySelector('.overlay').classList.remove('active');
-            });
-    },
-    buildList: (data) => {
-        let m = document.getElementById('main');
-        console.log(data);
-        //hide the overlay / loader
-
-        document.querySelector('.overlay').classList.remove('active');
-        //add the data
-        m.innerHTML = data.results
-            .map((item) => {
-                let nm = item.name || item.title;
-                return `<p>${nm}</p>`;
-            })
-            .join(' ');
-        //add the prev/next navigation
-        let footer = document.getElementById('footer');
-        footer.innerHTML = '';
-
-        if (data.previous) {
-            //previous link
-            let prev = document.createElement('a');
-            prev.href = data.previous;
-            let url = new URL(data.previous);
-            let labels = url.pathname.split('/');
-            let label = labels[labels.length - 2];
-            prev.textContent = `<< Previous ${label}`;
-            prev.setAttribute('data-link', data.previous);
-            footer.append(prev);
-        }
-        if (data.next) {
-            //next link
-            let next = document.createElement('a');
-            next.href = data.next;
-            let url = new URL(data.next);
-            let labels = url.pathname.split('/');
-            let label = labels[labels.length - 2];
-            next.textContent = `Next ${label} >>`;
-            next.setAttribute('data-link', data.next);
-            footer.append(next);
-        }
-    },
+const urls = {
+    base: "https://swapi.dev/api/",
+    people: "people/",
+    planets: 'planets/',
+    films: 'films/',
+    species: 'species/',
+    vehicles: 'vehicles/',
+    starships: 'starships/',
 };
 
-document.addEventListener('DOMContentLoaded', APP.init);
+const apiItemsNavbar = document.querySelector(".api-items__navbar");
+
+function createLinks() {
+    let df = new DocumentFragment();
+    for (let url in urls) {
+        if (url !== "base") {
+            let link = document.createElement("a");
+            link.href = `${urls.base}${urls[url]}`;
+            link.textContent = url;
+            link.setAttribute("link", `${urls.base}${urls[url]}`);
+            df.append(link);
+        }
+    }
+    apiItemsNavbar.append(df);
+}
+
+createLinks();
+
+async function getData(e) {
+    if (e) e.preventDefault();
+
+    document.querySelector(".overlay").classList.add("active");
+
+    let link = e.target;
+    let url = link.getAttribute("link");
+
+    await fetch(url)
+        .then((res) => {
+            if (!res.ok) throw new Error(res.statusText);
+            return res.json();
+        })
+        .then(buildList)
+        .catch((err) => {
+            console.log(err);
+            document.querySelector(".overlay").classList.remove("active");
+        });
+}
+
+const buildList = (data) => {
+    const main = document.querySelector(".api-items__main");
+    console.log(data);
+
+    document.querySelector(".overlay").classList.remove("active");
+
+    main.innerHTML = data.results
+        .map((item) => {
+            let itemName = item.name || item.title;
+            return `<p>${itemName}</p>`;
+        })
+        .join(" ");
+};
+
+apiItemsNavbar.addEventListener("click", getData);
