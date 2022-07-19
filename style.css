@@ -109,7 +109,7 @@ span {
     font-size: 250%;
     text-align: justify;
     color: #ff6;
-    transform: perspective(200px) rotateX(30deg);
+    transform: rotateX(30deg);
 }
 
 #scroller div {
@@ -262,11 +262,10 @@ h3 {
     flex-direction: column;
 }
 
-p {
-    line-height: 1.7;
-    margin: 20px 0;
+.api-items__main a {
     color: #f5c91c;
-    font-weight: 500;
+    margin-top: 30px;
+    cursor: pointer;
 }
 
 .overlay {
@@ -307,4 +306,13 @@ p {
     100% {
         opacity: 1;
     }
+}
+
+.person {
+    width: 100vw;
+    height: 100vh;
+}
+
+.person p {
+    color: #f5c91c;
 }
