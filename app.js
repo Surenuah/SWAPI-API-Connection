@@ -8,13 +8,12 @@ const urls = {
     starships: "starships/",
 };
 
-const tree = {
-    first: "https://swapi.dev/api/people/1/",
-    second: "https://swapi.dev/api/people/2/",
-    third: "https://swapi.dev/api/people/3/",
-}
-
+const params = new URLSearchParams(window.location.search);
 const apiItemsNavbar = document.querySelector(".api-items__navbar");
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetchResources(params);
+});
 
 function createLinks() {
     let df = new DocumentFragment();
@@ -65,30 +64,38 @@ const buildList = (data) => {
             link.innerHTML = item.name || item.title;
             link.addEventListener("click", (e) => {
                 link.href = "#person";
-                fetchResources(e.target.id, link.getAttribute("resource"));
+                queryParameters(e.target.id, link.getAttribute("resource"));
             });
             main.appendChild(link);
         })
         .join(" ");
 };
 
-async function fetchResources(id, resource) {
-    const person = document.querySelector(".person");
-    let url = new URL(`https://swapi.dev/api/${resource}/${id}/`);
-    let resourcePathname = url.pathname.split("/")[2];
-    let pathname = url.pathname.split("/")[3];
+function queryParameters(id, resource) {
+    const url = new URL(`https://swapi.dev/api/${resource}/${id}/`);
+    const queryString = Object.fromEntries(params.entries());
+    const resourcePathname = url.pathname.split("/")[2];
+    const idPathname = url.pathname.split("/")[3];
+    params.set("resource", `${resourcePathname}`);
+    params.set("id", `${idPathname}`);
+    window.history.pushState("string", "resource", `${"?" + params}`);
 
-    url.searchParams.set("resource", `${resourcePathname}`);
-    url.searchParams.set("id", `${pathname}`);
-    await fetch(`https://swapi.dev/api/${url.searchParams.get("resource")}/${url.searchParams.get("id")}/`)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            let p = document.createElement("p");
-            p.innerHTML = JSON.stringify(data);
-            person.appendChild(p);
-        })
+    fetchResources(params);
+}
+
+async function fetchResources(params) {
+    const person = document.querySelector(".person");
+    if (params.has("resource") && params.has("id")) {
+        await fetch(`https://swapi.dev/api/${params.get("resource")}/${params.get("id")}/`)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                let p = document.createElement("p");
+                p.innerHTML = JSON.stringify(data);
+                person.appendChild(p);
+            })
+    }
 }
 
 apiItemsNavbar.addEventListener("click", getData);
