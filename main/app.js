@@ -63,7 +63,7 @@ const buildList = (data) => {
             link.setAttribute("resource", `${item.url.split("/")[4]}`)
             link.innerHTML = item.name || item.title;
             link.addEventListener("click", (e) => {
-                link.href = "#person";
+                window.location.href = "resources.html";
                 queryParameters(e.target.id, link.getAttribute("resource"));
             });
             main.appendChild(link);
@@ -73,9 +73,9 @@ const buildList = (data) => {
 
 function queryParameters(id, resource) {
     const url = new URL(`https://swapi.dev/api/${resource}/${id}/`);
-    const queryString = Object.fromEntries(params.entries());
-    const resourcePathname = url.pathname.split("/")[2];
+    const resourcePathname = url.pathname.split("/")[2];2
     const idPathname = url.pathname.split("/")[3];
+
     params.set("resource", `${resourcePathname}`);
     params.set("id", `${idPathname}`);
     window.history.pushState("string", "resource", `${"?" + params}`);
@@ -85,7 +85,7 @@ function queryParameters(id, resource) {
 
 async function fetchResources(params) {
     const person = document.querySelector(".person");
-    if (params.has("resource") && params.has("id")) {
+    if (params.has("id")) {
         await fetch(`https://swapi.dev/api/${params.get("resource")}/${params.get("id")}/`)
             .then((response) => {
                 return response.json();
