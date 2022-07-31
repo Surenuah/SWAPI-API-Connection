@@ -27,6 +27,18 @@ function createLinks() {
 
 createLinks();
 
+const links = document.querySelectorAll("a");
+links.forEach(item => {
+    item.addEventListener("click", (e) => {
+        const active = document.querySelectorAll(".active");
+        active.forEach(element => {
+            element.classList.remove("active");
+        });
+
+        e.target.classList.add("active");
+    });
+});
+
 async function getData(e) {
     if (e) e.preventDefault();
 

@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
+    user-select: none;
 }
 
 html {
@@ -253,6 +254,10 @@ h3 {
     color: orangered;
     padding: 15px 30px;
     text-decoration: none;
+}
+
+.api-items__navbar .active {
+    color: #f5c91c;
 }
 
 .api-items__main {
