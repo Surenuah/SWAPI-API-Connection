@@ -11,10 +11,6 @@ const urls = {
 const params = new URLSearchParams(window.location.search);
 const apiItemsNavbar = document.querySelector(".api-items__navbar");
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetchResources(params);
-});
-
 function createLinks() {
     let df = new DocumentFragment();
     for (let url in urls) {
@@ -62,8 +58,8 @@ const buildList = (data) => {
             link.setAttribute("id", `${item.url.split("/")[5]}`);
             link.setAttribute("resource", `${item.url.split("/")[4]}`)
             link.innerHTML = item.name || item.title;
+            link.href = `resources/resources.html?resource=${link.getAttribute("resource")}&id=${link.getAttribute("id")}`;
             link.addEventListener("click", (e) => {
-                window.location.href = "resources.html";
                 queryParameters(e.target.id, link.getAttribute("resource"));
             });
             main.appendChild(link);
@@ -73,29 +69,12 @@ const buildList = (data) => {
 
 function queryParameters(id, resource) {
     const url = new URL(`https://swapi.dev/api/${resource}/${id}/`);
-    const resourcePathname = url.pathname.split("/")[2];2
+    const resourcePathname = url.pathname.split("/")[2];
     const idPathname = url.pathname.split("/")[3];
 
     params.set("resource", `${resourcePathname}`);
     params.set("id", `${idPathname}`);
     window.history.pushState("string", "resource", `${"?" + params}`);
-
-    fetchResources(params);
-}
-
-async function fetchResources(params) {
-    const person = document.querySelector(".person");
-    if (params.has("id")) {
-        await fetch(`https://swapi.dev/api/${params.get("resource")}/${params.get("id")}/`)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                let p = document.createElement("p");
-                p.innerHTML = JSON.stringify(data);
-                person.appendChild(p);
-            })
-    }
 }
 
 apiItemsNavbar.addEventListener("click", getData);
