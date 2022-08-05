@@ -271,6 +271,7 @@ h3 {
     color: #f5c91c;
     margin-top: 30px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .overlay {

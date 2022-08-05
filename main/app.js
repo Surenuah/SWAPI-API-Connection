@@ -1,3 +1,4 @@
+// SWAPI API Urls
 const urls = {
     base: "https://swapi.dev/api/",
     people: "people/",
@@ -11,6 +12,7 @@ const urls = {
 const params = new URLSearchParams(window.location.search);
 const apiItemsNavbar = document.querySelector(".api-items__navbar");
 
+// Creating navbar links
 function createLinks() {
     let df = new DocumentFragment();
     for (let url in urls) {
@@ -27,6 +29,7 @@ function createLinks() {
 
 createLinks();
 
+// Adding active element to navbar links
 const links = document.querySelectorAll("a");
 links.forEach(item => {
     item.addEventListener("click", (e) => {
@@ -39,6 +42,7 @@ links.forEach(item => {
     });
 });
 
+// Get data from navbar links id's
 async function getData(e) {
     if (e) e.preventDefault();
 
@@ -53,12 +57,12 @@ async function getData(e) {
             return res.json();
         })
         .then(buildList)
-        .catch((err) => {
-            console.log(err);
+        .catch(() => {
             document.querySelector(".overlay").classList.remove("active");
         });
 }
 
+// Creating links which will drop out of the navbar links
 const buildList = (data) => {
     const main = document.querySelector(".api-items__main");
 
@@ -66,19 +70,28 @@ const buildList = (data) => {
 
     data.results
         .map((item) => {
-            let link = document.createElement('a');
+            let link = document.createElement("a");
             link.setAttribute("id", `${item.url.split("/")[5]}`);
-            link.setAttribute("resource", `${item.url.split("/")[4]}`)
+            link.setAttribute("resource", `${item.url.split("/")[4]}`);
             link.innerHTML = item.name || item.title;
             link.href = `resources/resources.html?resource=${link.getAttribute("resource")}&id=${link.getAttribute("id")}`;
+
+            links.forEach(button => {
+                button.addEventListener("click", e => {
+                    link.style.display = link.id === e.target.link ? "block" : "none";
+                });
+            });
+
             link.addEventListener("click", (e) => {
                 queryParameters(e.target.id, link.getAttribute("resource"));
             });
+
             main.appendChild(link);
         })
         .join(" ");
 };
 
+// Creating query parameters to pull data from the search string
 function queryParameters(id, resource) {
     const url = new URL(`https://swapi.dev/api/${resource}/${id}/`);
     const resourcePathname = url.pathname.split("/")[2];

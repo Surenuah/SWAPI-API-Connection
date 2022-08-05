@@ -3,9 +3,23 @@
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif, "Roboto";
+    user-select: none;
+}
+
+body {
+    background:url(https://s3.amazonaws.com/wp_media-prod/app/uploads/2015/10/21135602/star-wars-space.jpg) 50% 0 no-repeat fixed;
+}
+
+.resources {
+    display: flex;
+    flex-direction: column;
+    margin: 35px;
+}
+
+span {
+    color: red;
 }
 
 p {
-    display: flex;
-    flex-direction: column;
+    color: #f5c91c;
 }
